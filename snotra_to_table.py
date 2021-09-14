@@ -1,5 +1,6 @@
 import argparse
 import json
+import csv
 import os
 
 
@@ -34,16 +35,18 @@ def main():
     ### CIS
     file_path = os.path.join(args.o, "{}_CIS.csv".format(filename))
     with open(file_path, 'w') as f:
-        f.write("Check,Level,Benchmark,Result,Pass/Fail\n")
+        writer = csv.writer(f)
+        writer.writerow(["Check", "Level", "Benchmark", "Result", "Pass/Fail"])
         for finding in results["findings"]:
             if finding["compliance"] == "cis":
-                f.write("{},{},{},{},{}\n".format(finding["ref"],finding["level"],finding["name"],finding["analysis"],finding["pass_fail"]))
+                writer.writerow([finding["ref"],finding["level"],finding["name"],finding["analysis"],finding["pass_fail"]])
     ### All
     file_path = os.path.join(args.o, "{}.csv".format(filename))
     with open(file_path, 'w') as f:
-        f.write("Check,Level,Benchmark,Result,Pass/Fail\n")
+        writer = csv.writer(f)
+        writer.writerow(["id", "ref", "compliance", "level", "service", "name", "affected", "analysis", "description", "remediation", "impact", "probability", "cvss_vector", "cvss_score", "pass_fail"])
         for finding in results["findings"]:
-            f.write("{},{},{},{},{}\n".format(finding["ref"],finding["level"],finding["name"],finding["analysis"],finding["pass_fail"]))
+            writer.writerow([finding["id"], finding["ref"], finding["compliance"], finding["level"], finding["service"], finding["name"], finding["affected"], finding["analysis"], finding["description"], finding["remediation"], finding["impact"], finding["probability"], finding["cvss_vector"], finding["cvss_score"], finding["pass_fail"]])
 
 
 if __name__ == '__main__':
