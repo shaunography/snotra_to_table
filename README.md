@@ -7,6 +7,6 @@ Convert Snotra results JSON into CSV tables for importing into reports.
 ## output files
 Two CSV files are produced in the output directory.
 ### CIS
-A simple CSV file containing only CIS benchmark checks with the fields "ref", "level", "name", "analysis" and "pass_fail".
+A simple CSV file containing only CIS benchmark checks with the fields "ref", "level", "name", "affected", "analysis" and "pass_fail".
 ### all
 A CSV file containing all checks and all fields
